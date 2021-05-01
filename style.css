@@ -30,6 +30,12 @@
     top: 200  px;
 }
 
+#Description img{
+    width: 140px;
+    height: 140px;
+}
+
+
 .welcome-msg h1{
     font-size: 80px;
     font-weight: 100;
