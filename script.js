@@ -1,3 +1,3 @@
-let button = true
-
-if(button === true) location.replace('/homepage.html')
+document.getElementById("Perfil").onclick = function () {
+    location.replace = '/profile.html';
+};
