@@ -36,6 +36,10 @@
     height: 140px;
 }
 
+#Description h2{
+    font-family: Lato;
+
+}
 
 .welcome-msg h1{
     font-size: 80px;
