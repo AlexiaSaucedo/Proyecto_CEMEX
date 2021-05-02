@@ -11,6 +11,29 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Palanquin&display=swap" rel="stylesheet">
     <title>Get constructive</title>
+    <style>
+      /* Carousel base class */
+  .carousel {
+    margin-bottom: 4rem;
+  }
+  /* Since positioning the image, we need to help out the caption */
+  .carousel-caption {
+    bottom: 3rem;
+    z-index: 10;
+  }
+
+  /* Declare heights because of positioning of img element */
+  .carousel-item {
+    height: 32rem;
+  }
+  .carousel-item > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height: 32rem;
+  }
+    </style>
   </head>
   <body>
     <!-- Optional JavaScript; choose one of the two! -->
@@ -42,11 +65,12 @@
                 <a class="nav-link active" aria-current="page" href="#Play">Como Jugar</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Videojuego</a>
+                <a class="nav-link active" aria-current="page" href="/Videogame.html">Videojuego</a>
               </li>
+              <!--
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">Acerca de Nosotros </a>
-              </li>
+              </li>-->
             </ul>
             <div class="flex-shrink-0 dropdown">
               <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
