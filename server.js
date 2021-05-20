@@ -2,7 +2,6 @@
 import express from 'express'
 import path from 'path'
 const app = express()
-const port = 3000;
 
 app.set('view engine', 'ejs')
 app.use('/front', express.static(path.join(__dirname, '/homepage.html')))
@@ -25,4 +24,10 @@ app.get('/game/:id', (req, resp) => {
   resp.render('front/Videogame', {})
 })
 
-app.listen(port, () => console.log("listening on port" + port))
+
+let init_app = (app, port) => {
+  console.log("listening on port" + port)
+  return app.listen(port)
+}
+
+export {app, init_app, init_endpoints}
