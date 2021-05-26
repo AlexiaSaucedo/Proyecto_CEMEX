@@ -1,4 +1,5 @@
-import env from 'dotenv' // to know exactly why it takes the .env or to take another one, read https://github.com/motdotla/dotenv
+// to know exactly why it takes the .env or to take another one, read https://github.com/motdotla/dotenv
+const env = require('dotenv')
 
 env.config({path: './.env'})
 if (env.error) {
@@ -10,7 +11,7 @@ const MYSQL_URL_CONNECTION_URL = process.env.MYSQL_URL_CONNECTION_URL || "mysql:
 const PASSWORD_ROUNDS = process.env.PASSWORD_ROUNDS || 10
 const TOKEN_EXPIRES_TIME = process.env.TOKEN_EXPIRES_TIME || 1000000
 const SECRET_FOR_JWT = process.env.SECRET_FOR_JWT || 'secret-value'
-export {
+module.exports = {
   PORT,
   MYSQL_URL_CONNECTION_URL,
   PASSWORD_ROUNDS,

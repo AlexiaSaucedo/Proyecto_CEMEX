@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Reto de C. de Software",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
@@ -20,8 +19,11 @@
   },
   "homepage": "https://github.com/AlexiaSaucedo/Proyecto_CEMEX#readme",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "mariadb": "^2.5.3",
+    "mysql": "^2.18.1",
     "sequelize": "^6.6.2",
     "sequelize-cli": "^6.2.0"
   },

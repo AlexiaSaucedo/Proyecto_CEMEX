@@ -1,27 +1,19 @@
-//usar express
 const express = require('express');
 const path = require('path');
-//import { fileURLToPath } from 'url';
 const app = express();
-//const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const Empleado = require('./models').Empleado;
+
+const PORT = process.env.PORT || 5000;
+//console.log(Empleado.create);
+
 
 //Set static folder
-//app.use(express.static(path.join(__dirname, 'front')));
+app.use(express.static(path.join(__dirname, 'front')));
+//app.use(express.static(path.join(__dirname, 'images')));
 
 // set the rendering motor view templating
 app.set('view engine', 'ejs')
 app.set('front', path.resolve('./front'))
-// set as static pages the exported demo game
-app.use('/Juego', express.static(path.resolve('./front/Juego')))
-
-
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-
-
-
-/*
 
 app.set('view engine', 'ejs')
 app.use('/front', express.static(path.join(__dirname, '/homepage.html')))
@@ -30,6 +22,13 @@ app.get('/homepage', function(req, res) {
   res.render('front/homepage')
   // res.sendFile(path.join(__dirname, '/homepage.html'));
 });
+
+app.get('/profile', async (req, res) => {
+  let params = Object.assign({}, req.params, req.body, req.query);
+  // TODO query with the params the data of the user => await Empleado.findAll({where: {id: params.id}});
+  res.render('profile', {});// second params {} will be the data that will render the employee
+})
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'front', 'homepage.html'));
 });
@@ -48,5 +47,4 @@ app.get('/game/:id', (req, resp) => {
   resp.render('front/Videogame', {})
 })
 
-app.listen(port, () => console.log("listening on port" + port))
-*/
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

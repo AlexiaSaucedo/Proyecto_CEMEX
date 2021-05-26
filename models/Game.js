@@ -1,7 +1,33 @@
-import Sequelize from 'sequelize'
-import {MYSQL_URL_CONNECTION_URL} from '../config.js'
+const { Sequelize } = require('sequelize');
+const {MYSQL_URL_CONNECTION_URL} = require('../config.js');
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Game extends Model {
+    static associate(models) {
+      // define association here
+    }
+  }
+  Game.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true
+    }
+  }, {
+    sequelize,
+    modelName: 'Game',
+    tableName: 'Game'
+  });
+  Game.sync({alter: true})
+  return Game;
+}
 
+
+
+/*
 const sequelize = new Sequelize(MYSQL_URL_CONNECTION_URL)
+new Sequelize()
 /*
    GAME 
    id: int,
@@ -12,7 +38,7 @@ const sequelize = new Sequelize(MYSQL_URL_CONNECTION_URL)
    jira_id: int,
    jira_status: string,
    game_id: int
-*/
+/*
 const GameDataSourceMysql = sequelize.define('Game', {
   id: {
     type: Sequelize.DataType.INTEGER,
@@ -66,6 +92,6 @@ export default class {
   }
 }
 
-
+*/
 
 
