@@ -25,15 +25,15 @@
     </style>
 
     <div class="text-center mt-5">
-        <form action="homepage.html" style="max-width: 300px;margin:auto;">
+        <form action="/login" method="POST" style="max-width: 300px;margin:auto;">
             <img class="mt-4 mb-4" src="images/Logo.png" height="72" alt="Logo">
             <h1 class="h3 mb-3 fw-normal">Get Constructive</h1>
             
         
             <label for="emailAddress" class="visually-hidden">Email address</label>
-            <input type="email" id="emailAddress" class="form-control" placeholder="Correo Electrónico" required autofocus>
+            <input type="email" name="email"  id="emailAddress" class="form-control" placeholder="Correo Electrónico" required autofocus>
             <label for="password" class="visually-hidden">Password</label>
-            <input type="password" id="password" placeholder="Contraseña" class="form-control">
+            <input type="password" name="contraseña" id="password" placeholder="Contraseña" class="form-control">
             <div class="checkbox mt-3">
                 <label>
                     <input type="checkbox" value="remember-me"> Recordar cuenta
@@ -44,7 +44,7 @@
             </div>
             <div class="mt-3">
                 ¿No estas registrado?
-                <a href="/register.html"> Crea una cuenta </a>
+                <a href="/register"> Crea una cuenta </a>
             </div>
 
         </form>

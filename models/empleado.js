@@ -16,9 +16,23 @@ module.exports = (sequelize, DataTypes) => {
   Empleado.init({
     id: {
       type: DataTypes.INTEGER,
+      autoIncrement: true,
       primaryKey: true
     },
-    nombre: DataTypes.STRING,
+    nombre: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    apellido: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: 'email'
+    },
+    contraseña: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     puesto: DataTypes.STRING,
     kpi: DataTypes.INTEGER,
     dinero: DataTypes.INTEGER
