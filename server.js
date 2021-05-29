@@ -1,10 +1,16 @@
 //Express server
 const express = require('express');
+const passport = require('passport'); 
+const session = require('express-session');
 const path = require('path');
 const {check, validationResult} = require('express-validator');
 const app = express();
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
+
+//Middleware
+const auth = require('./middleware/auth');
+
 
 //Modelos de la base de datos 
 const db = require("./models")
@@ -12,29 +18,34 @@ const db = require("./models")
 //Controllers
 const empleadoController = require('./controller/empleadoController');
 
-//Server Porte
+//Server Port
 const PORT = process.env.PORT || 5000;
 
 
 // set the rendering motor view templating
-app.set('view engine', 'ejs')
-
+app.set('view-engine', 'ejs')
 
 app.set('front', path.resolve('./front'))
-//Set static folder 
-app.use(express.static(path.join(__dirname, 'front')));
+app.use(express.static(path.join(__dirname, 'views')));
 
-app.get('/homepage', function(req, res) {
-  res.render('front/homepage')
-  // res.sendFile(path.join(__dirname, '/homepage.html'));
+
+//Iniciar Endpoints
+app.get('/', (req, res) => {
+  res.render('front/homepage2', {user: "Esta registrado"});
+});
+
+// Poner la variable 'auth'
+app.get('/profile', (req, res) => {
+  //res.json({login: "Esta es la pagina de login"})
+  res.render('profile.ejs', {name: 'Name:'})
 });
 
 app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'front/login.html'));
+  res.render('login.ejs')
 });
 
 app.get('/register', (req, res) => {
-  res.sendFile(path.join(__dirname, 'front/register.html'));
+  res.render('register.ejs')
 });
 
 //empleadoController.login

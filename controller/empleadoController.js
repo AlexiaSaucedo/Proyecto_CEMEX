@@ -23,10 +23,13 @@ module.exports = {
                         expiresIn: "7d"
                     });
 
+                   
                     res.json({
                         user: user,
                         token: token
-                    });
+                    }); 
+
+                    //res.redirect('/profile', 302)
                     
                 }else{
                     res.status(401).json({msg: "Contraseña incorrecta"})
@@ -42,11 +45,10 @@ module.exports = {
     signUp(req, res) {
 
         //Encriptar la contraseña 
-        let password = bcrypt.hashSync(req.body.contraseña, 10);
+        let password = bcrypt.hashSync(req.body.password, 10);
 
         //Crear un usuario
         Empleado.create({
-            id: 0,
             nombre: req.body.nombre,
             apellido: req.body.apellido,
             email: req.body.email,
@@ -56,11 +58,13 @@ module.exports = {
             let token = jwt.sign({user: user}, "secret", {
                 expiresIn: "7d"
             });
-
+            /*
             res.json({
                 user: user,
                 token: token
-            });
+            }); */
+            
+            res.redirect('/login')
 
         }).catch(err => {
             res.status(500).json(err);
