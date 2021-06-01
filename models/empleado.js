@@ -1,3 +1,4 @@
+const Tareas = require('./Tarea')
 'use strict';
 const {
   Model
@@ -10,13 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Empleado.hasMany(models.Tarea, { as: "tareas", foreignKey: "Id_Empleado"});
     }
   };
   Empleado.init({
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
+      allowNull: false,
       primaryKey: true
     },
     nombre: {
@@ -42,5 +44,6 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'Empleado'
   });
   Empleado.sync({alter: true})
+
   return Empleado;
 };
