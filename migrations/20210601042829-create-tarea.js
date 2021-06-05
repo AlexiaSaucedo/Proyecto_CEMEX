@@ -20,7 +20,7 @@ module.exports = {
       tipo: {
         type: Sequelize.STRING
       },
-      empleadoId: {
+      Id_Empleado: {
         type: Sequelize.INTEGER,
         references: {
           model: "empleado",

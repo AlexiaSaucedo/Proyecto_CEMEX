@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Palanquin&display=swap" rel="stylesheet">
     <title>Get constructive</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <style>
       /* Carousel base class */
   .carousel {
@@ -77,10 +78,10 @@
                 <img src="images/user_pic.png" alt="mdo" width="32" height="32" class="rounded-circle">
               </a>
               <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser2">
-                <li><a class="dropdown-item" href="/profile.html" id="Perfil" >Perfil</a></li>
+                <li><a class="dropdown-item" onclick="userId()" id="Perfil" >Perfil</a></li>
                 <li><a class="dropdown-item" href="#">Ajustes</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="/login.html">Cerrar sesión</a></li>
+                <li><a class="dropdown-item" href="/login">Cerrar sesión</a></li>
               </ul>
             </div>
             
@@ -193,5 +194,25 @@
 
       
   </body>
+  <script>
+    function userId() {
+
+    const id = window.localStorage.getItem('id');
+    
+    axios.get('http://localhost:5000/profile', {
+      params: {
+        id: id
+      }
+    })
+    .then(function (response) {
+      console.log(response);
+      resultElement.innerHTML = generateSuccessHTMLOutput(response);
+    })
+    .catch(function (error) {
+        resultElement.innerHTML = generateErrorHTMLOutput(error);
+    });
+  }
+
+  </script>
 
 </html>

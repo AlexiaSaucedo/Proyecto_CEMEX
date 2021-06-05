@@ -9,11 +9,11 @@ app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 
 //Middleware
-const auth = require('./middleware/auth');
+const auth = require('./middleware/jwt');
 
 
 //Modelos de la base de datos 
-const db = require("./models")
+const {Empleado} = require('./models/index')
 
 //Controllers
 const empleadoController = require('./controller/empleadoController');
@@ -30,15 +30,37 @@ app.use(express.static(path.join(__dirname, 'views')));
 
 
 //Iniciar Endpoints
-app.get('/', (req, res) => {
-  res.render('front/homepage2', {user: "Esta registrado"});
+app.get('/', auth, (req, res) => {
+  res.render('front/homepage', {user: "Esta registrado"});
+});
+
+app.get('/auth', auth, (req, res) => {
+  console.log({success: true})
+});
+
+app.get('/homepage', (req, res) => {
+  res.render('homepage.ejs')
 });
 
 // Poner la variable 'auth'
 app.get('/profile', (req, res) => {
-  //res.json({login: "Esta es la pagina de login"})
-  res.render('profile.ejs', {name: 'Name:'})
+  const id = req.query.id
+  Empleado.findByPk(id)
+  .then(user => {
+    console.log(user)
+    res.render('profile.ejs', {token: null, id: user.id ,nombre: user.nombre, apellido: user.apellido, puesto: user.puesto, email: user.email})  
+  }).catch(err => {
+    res.status(500).json(err);
+  })
 });
+
+app.get('/profile/:id', (req, res) => {
+  id = req.params.id
+  user = Empleado.findByPk(id)
+  res.send({user: id});
+  //res.render('profile.ejs',{token: null, nombre: null, apellido: null, puesto: null, email: null})
+});
+
 
 app.get('/login', (req, res) => {
   res.render('login.ejs')

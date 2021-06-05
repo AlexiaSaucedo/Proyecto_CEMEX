@@ -1,29 +1,8 @@
 const jwt = require('jsonwebtoken');
+const createError = require("http-errors")
+const {Empleado} = require('../models/index')
 
-const passport = require('passport');
-const localStrategy = require('passport-local').Strategy;
-const Empleado = require('../models/empleado');
 
-passport.use(
-    'signup',
-    new localStrategy(
-      {
-        usernameField: 'email',
-        passwordField: 'password'
-      },
-      async (email, password, done) => {
-        try {
-          const user = await Empleado.create({ email, password });
-  
-          return done(null, user);
-        } catch (error) {
-          done(error);
-        }
-      }
-    )
-  );
-
-/* 
 module.exports = (req,res,next) => {
     
     console.log(req.headers);
@@ -41,8 +20,13 @@ module.exports = (req,res,next) => {
             if(err) {
                 res.status(500).json({msg: "Ha ocurrido un problema al decodificar el token", err});
             }else {
-                console.log(decoded);
+              Empleado.findByPk(decoded.user.id)
+              .then(user => {
+                req.user = user;
+                console.log(user)
                 next();
+              })
+                
             }
 
         })
@@ -50,4 +34,3 @@ module.exports = (req,res,next) => {
     
     }
 };
-*/

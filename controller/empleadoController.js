@@ -22,14 +22,8 @@ module.exports = {
                     let token = jwt.sign({user: user}, "secret", {
                         expiresIn: "7d"
                     });
-
-                   
-                    res.json({
-                        user: user,
-                        token: token
-                    }); 
-
-                    //res.redirect('/profile', 302)
+                    console.log(user)
+                    res.render('profile.ejs', {token: token, id: user.id ,nombre: user.nombre, apellido: user.apellido, puesto: user.puesto, email: user.email})
                     
                 }else{
                     res.status(401).json({msg: "Contraseña incorrecta"})

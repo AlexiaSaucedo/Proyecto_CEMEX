@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
     descripcion: DataTypes.TEXT,
 
     tipo: DataTypes.STRING,
+    estado: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
 
     Id_Empleado: {
       type: DataTypes.INTEGER,
@@ -31,6 +35,9 @@ module.exports = (sequelize, DataTypes) => {
         key: "id"
       },
       onDelete: "CASCADE"
+    },
+    resolvedAt: {
+      type: DataTypes.DATE
     }
 
   }, {
