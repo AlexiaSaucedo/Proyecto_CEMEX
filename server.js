@@ -42,6 +42,10 @@ app.get('/homepage', (req, res) => {
   res.render('homepage.ejs')
 });
 
+app.get('/videogame', (req, res) => {
+  res.render('Videogame.ejs')
+});
+
 // Poner la variable 'auth'
 app.get('/profile', (req, res) => {
   const id = req.query.id
@@ -54,11 +58,17 @@ app.get('/profile', (req, res) => {
   })
 });
 
-app.get('/profile/:id', (req, res) => {
-  id = req.params.id
-  user = Empleado.findByPk(id)
-  res.send({user: id});
-  //res.render('profile.ejs',{token: null, nombre: null, apellido: null, puesto: null, email: null})
+app.get('/profile/:id/:token', (req, res) => {
+  const id = req.params.id
+  const token = req.params.token
+  Empleado.findByPk(id)
+  .then(user => {
+    console.log(user)
+    res.render('profile.ejs', {token: token, id: user.id ,nombre: user.nombre, apellido: user.apellido, puesto: user.puesto, email: user.email})  
+  }).catch(err => {
+    res.status(500).json(err);
+  })
+
 });
 
 

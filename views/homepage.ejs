@@ -66,7 +66,7 @@
                 <a class="nav-link active" aria-current="page" href="#Play">Como Jugar</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/Videogame.html">Videojuego</a>
+                <a class="nav-link active" aria-current="page" href="/videogame">Videojuego</a>
               </li>
               <!--
               <li class="nav-item">
@@ -198,19 +198,22 @@
     function userId() {
 
     const id = window.localStorage.getItem('id');
+    const token = window.localStorage.getItem('token');
+
+      window.location = `http://localhost:5000/profile/${id}/${token}`
     
+    /*
     axios.get('http://localhost:5000/profile', {
       params: {
         id: id
       }
     })
     .then(function (response) {
-      console.log(response);
-      resultElement.innerHTML = generateSuccessHTMLOutput(response);
+      console.log("Success ahhhh del profile");
     })
     .catch(function (error) {
-        resultElement.innerHTML = generateErrorHTMLOutput(error);
-    });
+      console.error(error) 
+    }); */
   }
 
   </script>

@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Tarea.belongsTo(models.Tarea, {as: "autor", foreignKey: "Id_Empleado"})
+      Tarea.belongsTo(models.Tarea, {as: "id_estado", foreignKey: "id_estatus"})
     }
   };
   Tarea.init({
@@ -27,7 +28,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-
     Id_Empleado: {
       type: DataTypes.INTEGER,
       references: {
@@ -38,8 +38,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     resolvedAt: {
       type: DataTypes.DATE
+    },
+    id_estatus: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "Estatuses",
+        key: "id_estatus" 
+      },
+      onDelete: "CASCADE"
     }
-
   }, {
     sequelize,
     modelName: 'Tarea',

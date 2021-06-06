@@ -28,6 +28,14 @@ module.exports = {
         },
         onDelete: "CASCADE"
       },
+      id_estatus: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Estatus",
+          key: "id_estatus" 
+        },
+        onDelete: "CASCADE"
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
