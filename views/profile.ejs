@@ -225,7 +225,7 @@
             </ul>
             <div class="flex-shrink-0 dropdown">
               <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="/views/images/user_pic.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                <img src="images/user_pic.png" alt="mdo" width="32" height="32" class="rounded-circle">
               </a>
               <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser2">
                 <li><a class="dropdown-item disabled" href="#">Perfil</a></li>
@@ -337,59 +337,12 @@
                                     </div>
                         </div>
                         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Display the order detail</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="progress">
-                                                <div class="progress-bar bg-warning" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">70%</div>
-                                              </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Access Calendar View</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="progress">
-                                                <div class="progress-bar bg-warning" role="progressbar" style="width: 57%;" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100">57%</div>
-                                              </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Order Cancellation</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="progress">
-                                                <div class="progress-bar bg-success" role="progressbar" style="width: 95%;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">95%</div>
-                                              </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Create Keys for new login page</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="progress">
-                                                <div class="progress-bar bg-danger" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                                              </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Display action log</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="progress">
-                                                <div class="progress-bar bg-success" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80%</div>
-                                              </div>
-                                        </div>
-                                    </div>
+                             <!--Div that will hold the pie chart-->
+                             <div id="chart_div"></div>
 
-                                    <!--Div that will hold the pie chart-->
-                                    <div id="chart_div"></div>
+        
+
+                                   
                         </div>
                     </div>
                 </div>
@@ -398,11 +351,131 @@
     </div>
   </body>
 <script>
+
+    //Obtener el token y Id del empleado del DOM, y los guarda en el localStorage
     let token = document.getElementById('token').innerText
     window.localStorage.setItem("token", token)
 
     let id = document.getElementById('user_id').innerText
     window.localStorage.setItem("id", id)
+
+    //Obtener la info de Tareas y desplegarlas en el DOM
+    fetch(`http://localhost:5000/tareas/${id}`).then(
+        res => {
+            res.json().then(
+                data => {
+                    console.log(data);
+                    if(data.length > 0){
+                        var temp = "";
+                        //empezar el loop
+
+                        data.forEach(u => {
+                            //Crea <div class="row">
+                            var div1 = document.createElement('div');
+                            div1.classList.add("row");
+
+                            //Crea <div class="col-md-6">
+                            var div2 = document.createElement('div');
+                            div2.classList.add("col-md-6")
+
+                            div1.appendChild(div2);
+                            //Crea <label> 
+                            var nombre = document.createElement('label');
+                            nombre.textContent = u.descripcion;
+                            div2.appendChild(nombre);
+
+                            //Crea <div class="col-md-6">
+                            var div3 = document.createElement('div');
+                            div3.classList.add("col-md-6")
+                            div3.id = "id_tarea_" + u.id
+                            div1.appendChild(div3);
+
+                            var valor = "";
+                            var color = "";
+                            switch(u.id_estatus){
+                                case 1:
+                                    valor = "6.25";
+                                    color = "bg-danger";
+                                    break;
+                                case 2:
+                                    valor = "12.5";
+                                    color = "bg-danger";
+                                    break;
+                                case 3:
+                                    valor = "18.75";
+                                    color = "bg-danger";
+                                    break;
+                                case 4:
+                                    valor = "25";
+                                    color = "bg-danger";
+                                    break;
+                                case 5:
+                                    valor = "31.25";
+                                    color = "bg-danger";
+                                    break;
+                                case 6:
+                                    valor = "37.5";
+                                    color = "bg-warning";
+                                    break;
+                                case 7:
+                                    valor = "43.75";
+                                    color = "bg-warning";
+                                    break;
+                                case 8:
+                                    valor = "50";
+                                    color = "bg-warning";
+                                    break;
+                                case 9:
+                                    valor = "56.25";
+                                    color = "bg-warning";
+                                    break;
+                                case 10:
+                                    valor = "62.5";
+                                    color = "bg-warning";
+                                    break;
+                                case 11:
+                                    valor = "68.75";
+                                    color = "bg-success";
+                                    break;
+                                case 12:
+                                    valor = "75";
+                                    color = "bg-success";
+                                    break;
+                                case 13:
+                                    valor = "81.25";
+                                    color = "bg-success";
+                                    break;
+                                case 14:
+                                    valor = "87.5";
+                                    color = "bg-success";
+                                    break;
+                                case 15:
+                                    valor = "93.75";
+                                    color = "bg-success";
+                                    break;
+                                case 16:
+                                    valor = "100";
+                                    color = "bg-success";
+                            }
+
+                            //Crea la progress bar 
+                            var progress = "";
+                            progress += '<div class="progress">';
+                            progress += `<div class="progress-bar ${color}" role="progressbar" style="width: ${valor}%;" aria-valuenow="${valor}" aria-valuemin="0" aria-valuemax="100"></div>`;
+                            progress += '</div>';
+                            document.getElementById('profile').appendChild(div1);
+                            
+                            var idT = u.id
+                            document.getElementById(`id_tarea_${idT}`).innerHTML = progress;
+                            
+                        });
+
+                        
+                    }
+                }
+            )
+        }
+    )
 </script>
 
 </html>

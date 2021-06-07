@@ -14,9 +14,11 @@ const auth = require('./middleware/jwt');
 
 //Modelos de la base de datos 
 const {Empleado} = require('./models/index')
+const {Tarea} = require('./models/index')
 
 //Controllers
 const empleadoController = require('./controller/empleadoController');
+//const Tarea = require('./models/Tarea');
 
 //Server Port
 const PORT = process.env.PORT || 5000;
@@ -49,6 +51,7 @@ app.get('/videogame', (req, res) => {
 // Poner la variable 'auth'
 app.get('/profile', (req, res) => {
   const id = req.query.id
+  //const token = req.params.token
   Empleado.findByPk(id)
   .then(user => {
     console.log(user)
@@ -70,6 +73,19 @@ app.get('/profile/:id/:token', (req, res) => {
   })
 
 });
+
+app.get('/tareas/:id', (req, res) => {
+  const id = req.params.id 
+  Tarea.findAll({
+    where: {
+      Id_Empleado: id
+    }
+  }).then(tarea => res.json(tarea)
+  ).catch(err => {
+    res.status(500).json(err)
+  }) 
+
+}); 
 
 
 app.get('/login', (req, res) => {
