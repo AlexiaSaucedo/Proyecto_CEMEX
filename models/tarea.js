@@ -22,7 +22,6 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     },
     descripcion: DataTypes.TEXT,
-
     tipo: DataTypes.STRING,
     estado: {
       type: DataTypes.STRING,
@@ -37,7 +36,10 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "CASCADE"
     },
     resolvedAt: {
-      type: DataTypes.DATE
+      type: DataTypes.DATEONLY
+    },
+    plannedEnd: {
+      type: DataTypes.DATEONLY
     },
     id_estatus: {
       type: DataTypes.INTEGER,

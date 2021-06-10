@@ -146,46 +146,7 @@
     background: url("/images/medal.png") no-repeat center center / 100% auto;
     }
     </style>
-    <!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['gauge']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-
-        var data = google.visualization.arrayToDataTable([
-          ['Label', 'Value'],
-          ['On time Completion', 80],
-          ['Cycle time', 55],
-          ['Network', 68]
-        ]);
-
-        var options = {
-          width: 400, height: 120,
-          redFrom: 90, redTo: 100,
-          yellowFrom:75, yellowTo: 90,
-          minorTicks: 5
-        };
-
-        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
-
-        chart.draw(data, options);
-
-        setInterval(function() {
-          data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
-          chart.draw(data, options);
-        }, 13000);
-        setInterval(function() {
-          data.setValue(1, 1, 40 + Math.round(60 * Math.random()));
-          chart.draw(data, options);
-        }, 5000);
-        setInterval(function() {
-          data.setValue(2, 1, 60 + Math.round(20 * Math.random()));
-          chart.draw(data, options);
-        }, 26000);
-      }
-    </script>
+    
   </head>
   <body>
     <!-- Optional JavaScript; choose one of the two! -->
@@ -202,7 +163,7 @@
     <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="/homepage">
-            <img src="images/Logo.png" alt="" width="50" height="50" class="d-inline-block align-text-middle">
+            <img src="/images/Logo.png" alt="" width="50" height="50" class="d-inline-block align-text-middle">
             Get constructive</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -225,11 +186,10 @@
             </ul>
             <div class="flex-shrink-0 dropdown">
               <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="images/user_pic.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                <img src="/images/user_pic.png" alt="mdo" width="32" height="32" class="rounded-circle">
               </a>
               <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser2">
                 <li><a class="dropdown-item disabled" href="#">Perfil</a></li>
-                <li><a class="dropdown-item" href="#">Ajustes</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/login">Cerrar sesión</a></li>
               </ul>
@@ -245,14 +205,16 @@
                 <div class="col-md-3">
                     <div class="profile-img">
                         <img src="/images/user_pic.png" alt=""/>
-                        <div class="file btn btn-lg btn-primary">
-                            Change Photo
-                            <input type="file" name="file"/>
-                        </div>
+                        
                     </div>
                 </div>
+                <div class="visually-hidden" id="kpi"> <%- kpi%> </div>
                 <div class="visually-hidden" id="token"> <%- token%> </div>
                 <div class="visually-hidden" id="user_id"> <%- id %> </div>
+
+
+
+
                 <div class="col-md-6">
                     <div class="profile-head">
                                 <h5>
@@ -272,9 +234,11 @@
                         </ul>
                     </div>
                 </div>
+                <!--
                 <div class="col-md-2">
-                    <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
-                </div>
+                    <button class="profile-edit-btn" value="Edit Profile" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar Perfil</button>
+                
+                </div>-->
             </div>
             <div class="row">
                 <div class="col-md-4">
@@ -337,10 +301,17 @@
                                     </div>
                         </div>
                         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                             <!--Div that will hold the pie chart-->
-                             <div id="chart_div"></div>
 
-        
+                        <!--Div that will hold the pie chart-->
+                        <div class="container" style="align-items: center; flex-direction: row;"  >
+                            <p> KPI: On time Completion %</p>
+                        <div id="chart_div">
+
+                        </div>
+
+                        </div>
+
+                        <p style="padding-top: 5%;"> Tareas del Usuario</p>
 
                                    
                         </div>
@@ -458,8 +429,10 @@
                                     color = "bg-success";
                             }
 
+                            var estado = u.estado;
                             //Crea la progress bar 
                             var progress = "";
+                            progress += `<label class="fst-italic">${estado}</label>`
                             progress += '<div class="progress">';
                             progress += `<div class="progress-bar ${color}" role="progressbar" style="width: ${valor}%;" aria-valuenow="${valor}" aria-valuemin="0" aria-valuemax="100"></div>`;
                             progress += '</div>';
@@ -477,5 +450,43 @@
         }
     )
 </script>
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['gauge']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  //document.addEventListener("DOMContentLoaded", (_event) => {
+
+    
+        function drawChart() {
+
+            let kpi = parseInt(document.getElementById('kpi').innerText)
+            console.log(kpi)
+
+            var data = google.visualization.arrayToDataTable([
+            ['Label', 'Value'],
+            ['.', kpi]
+            ]);
+
+            var options = {
+            width: 400, height: 190,
+            greenFrom: 54, greenTo: 90,
+            yellowFrom: 36, yellowTo: 54,
+            redFrom: 0, redTo: 36,
+            minorTicks: 5
+            };
+
+            var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+            chart.draw(data, options);
+        }  
+       
+
+   // });
+
+
+</script>
+
 
 </html>

@@ -56,8 +56,7 @@
               <img src="images/user_pic.png" alt="mdo" width="32" height="32" class="rounded-circle">
             </a>
             <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser2">
-              <li><a class="dropdown-item" href="/profile">Perfil</a></li>
-              <li><a class="dropdown-item" href="#">Ajustes</a></li>
+              <li><a class="dropdown-item" onclick="userId()" id="Perfil" >Perfil</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="/login">Cerrar sesión</a></li>
             </ul>
@@ -99,6 +98,19 @@
 
 
 
-    <script src="/API.js"></script>
+   
   </body>
+
+  <script>
+    function userId() {
+
+    const id = window.localStorage.getItem('id');
+    const token = window.localStorage.getItem('token');
+
+    window.location = `http://localhost:5000/profile/${id}/${token}`
+    
+  
+  }
+
+  </script>
 </html>

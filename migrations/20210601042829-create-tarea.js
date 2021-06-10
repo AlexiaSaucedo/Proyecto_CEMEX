@@ -36,13 +36,17 @@ module.exports = {
         },
         onDelete: "CASCADE"
       },
+      OnTime: Sequelize.BOOLEAN,
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY
+      },
+      plannedEnd: {
+        type: Sequelize.DATEONLY
       }
     });
   },
