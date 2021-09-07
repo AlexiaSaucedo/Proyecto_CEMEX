@@ -7,3 +7,7 @@ Reto de C. de Software
 
 
 
+https://user-images.githubusercontent.com/72261496/132385960-427b5389-7f06-4369-9cf9-acdd710cb59f.mov
+
+
+
